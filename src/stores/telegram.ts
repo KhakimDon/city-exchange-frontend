@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { WebApp } from '@twa-dev/sdk'
+import WebApp from '@twa-dev/sdk'
 
 export const useTelegramStore = defineStore('telegram', {
   state: () => ({

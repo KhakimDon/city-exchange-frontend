@@ -1,5 +1,5 @@
-import { onMounted, onUnmounted } from 'vue'
-import { WebApp } from '@twa-dev/sdk'
+import { onMounted } from 'vue'
+import WebApp from '@twa-dev/sdk'
 
 export function useTelegram() {
   onMounted(() => {
@@ -23,15 +23,11 @@ export function useTelegram() {
     WebApp.showConfirm(message, callback)
   }
 
-  const showPopup = (params: {
-    title?: string
-    message: string
-    buttons?: Array<{ id?: string; type?: 'default' | 'ok' | 'close' | 'cancel' | 'destructive'; text: string }>
-  }, callback?: (buttonId: string) => void) => {
+  const showPopup = (params: Parameters<typeof WebApp.showPopup>[0], callback?: Parameters<typeof WebApp.showPopup>[1]) => {
     WebApp.showPopup(params, callback)
   }
 
-  const openLink = (url: string, options?: { try_instant_view?: boolean }) => {
+  const openLink = (url: string, options?: Parameters<typeof WebApp.openLink>[1]) => {
     WebApp.openLink(url, options)
   }
 
