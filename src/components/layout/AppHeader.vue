@@ -15,10 +15,9 @@ import BackButton from '@/components/common/BackButton.vue'
 
 const route = useRoute()
 
-// Показывать кнопку назад на всех страницах, кроме главных страниц из bottom navigation
-const mainRoutes = ['/', '/buy-sell', '/orders', '/referral', '/support']
+// Показывать кнопку назад на всех страницах, кроме главной
 const showBackButton = computed(() => {
-  return !mainRoutes.includes(route.path)
+  return route.path !== '/'
 })
 </script>
 
