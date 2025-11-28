@@ -1,5 +1,5 @@
 <template>
-  <header v-if="showBackButton" class="sticky top-0 z-40 bg-white border-b border-gray-200">
+  <header v-if="showBackButton" class="sticky top-0 z-40 bg-[#1D2024] border-b border-gray-700">
     <div class="container mx-auto px-4">
       <div class="flex items-center h-14">
         <BackButton />

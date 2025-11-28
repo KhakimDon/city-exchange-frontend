@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50" :class="{ 'pb-16': shouldShowBottomNav }">
+  <div class="min-h-screen bg-[#181B20]" :class="{ 'pb-16': shouldShowBottomNav }">
     <AppHeader />
     <slot />
     <BottomNavigation v-if="shouldShowBottomNav" />
@@ -25,7 +25,7 @@ const route = useRoute()
 const shouldShowBottomNav = computed(() => {
   if (!props.showBottomNav) return false
   // Hide bottom nav on specific pages if needed
-  const hideNavRoutes = ['/aml', '/cityex24', '/about']
+  const hideNavRoutes = ['/aml', '/cityex24']
   return !hideNavRoutes.includes(route.path)
 })
 </script>
