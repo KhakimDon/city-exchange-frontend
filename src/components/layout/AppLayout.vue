@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen bg-gray-50" :class="{ 'pb-16': shouldShowBottomNav }">
+    <AppHeader />
     <slot />
     <BottomNavigation v-if="shouldShowBottomNav" />
   </div>
@@ -9,6 +10,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import BottomNavigation from './BottomNavigation.vue'
+import AppHeader from './AppHeader.vue'
 
 interface Props {
   showBottomNav?: boolean
