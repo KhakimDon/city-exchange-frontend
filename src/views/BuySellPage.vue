@@ -1,6 +1,7 @@
 <template>
-  <div class="min-h-screen pb-8" style="font-family: 'Montserrat', sans-serif;">
-    <div class="px-4 pt-6">
+  <div class="min-h-screen flex flex-col justify-between" style="font-family: 'Montserrat', sans-serif; padding-bottom: 180px;">
+    <div>
+      <div class="px-4 pt-6">
       <!-- Exchange Amount Section -->
       <div class="mb-[28px]">
         <label class="block text-[#26A17B] text-sm font-medium mb-0">
@@ -102,9 +103,10 @@
       </div>
 
     </div>
+    </div>
     
     <!-- Fixed bottom section -->
-    <div class="fixed bottom-[30px] left-0 right-0 bg-[#181B20] px-4 pt-4">
+    <div class="bg-[#181B20] px-4 pt-4 pb-4" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;">
       <!-- Terms Checkbox -->
       <div class="mb-[27px]">
         <BaseCheckbox v-model="acceptedTerms">
@@ -145,6 +147,9 @@ import WebApp from '@twa-dev/sdk'
 const router = useRouter()
 const amountInputRef = ref<HTMLInputElement | null>(null)
 
+// Prevent bottom bar from moving with keyboard
+let handleViewportChange: (() => void) | null = null
+
 // Show Telegram native back button
 onMounted(() => {
   if (WebApp.BackButton) {
@@ -153,12 +158,36 @@ onMounted(() => {
       router.push('/')
     })
   }
+  
+  // Prevent bottom bar from moving with keyboard
+  handleViewportChange = () => {
+    const bottomBar = document.querySelector('.fixed.bottom-0')
+    if (bottomBar) {
+      // Keep bottom bar fixed at screen bottom, not viewport bottom
+      ;(bottomBar as HTMLElement).style.bottom = '0px'
+      ;(bottomBar as HTMLElement).style.position = 'fixed'
+    }
+  }
+  
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', handleViewportChange)
+  }
+  
+  window.addEventListener('resize', handleViewportChange)
 })
 
 onBeforeUnmount(() => {
   if (WebApp.BackButton) {
     WebApp.BackButton.hide()
     WebApp.BackButton.offClick(() => {})
+  }
+  
+  // Cleanup viewport listeners
+  if (handleViewportChange) {
+    if (window.visualViewport) {
+      window.visualViewport.removeEventListener('resize', handleViewportChange)
+    }
+    window.removeEventListener('resize', handleViewportChange)
   }
 })
 
