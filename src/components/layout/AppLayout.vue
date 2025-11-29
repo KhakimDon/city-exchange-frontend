@@ -25,7 +25,7 @@ const route = useRoute()
 const shouldShowBottomNav = computed(() => {
   if (!props.showBottomNav) return false
   // Hide bottom nav on specific pages if needed
-  const hideNavRoutes = ['/aml', '/cityex24']
+  const hideNavRoutes = ['/aml', '/cityex24', '/buy-sell']
   return !hideNavRoutes.includes(route.path)
 })
 </script>

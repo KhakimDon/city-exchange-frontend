@@ -2,7 +2,7 @@
   <div class="min-h-screen pb-8" style="font-family: 'Montserrat', sans-serif;">
     <div class="px-4 pt-6">
       <!-- Exchange Amount Section -->
-      <div class="mb-6">
+      <div class="mb-[28px]">
         <label class="block text-[#26A17B] text-sm font-medium mb-0">
           Обмен <span class="text-[#26A17B]">*</span>
         </label>
@@ -61,7 +61,7 @@
       </div>
 
       <!-- Full Name Section -->
-      <div class="mb-6">
+      <div class="mb-[14px]">
         <BaseInput
           v-model="fullName"
           label="Ф.И.О"
@@ -73,41 +73,40 @@
       </div>
 
       <!-- Wallet Address Section -->
-      <div class="mb-4">
+      <div class="mb-[14px]">
         <BaseInput
           v-model="walletAddress"
           label="Адрес кошелька"
           placeholder="Кошелёк TRC-20"
           required
+          :line="false"
           :error="errors.walletAddress"
           @blur="validateWalletAddress"
         />
       </div>
 
       <!-- Info Box -->
-      <div class="mb-6 p-4 bg-[#26A17B] bg-opacity-10 rounded-xl">
-        <div class="flex items-start gap-3">
-          <svg
-            class="w-5 h-5 text-white flex-shrink-0 mt-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <p class="text-white text-sm leading-relaxed flex-1">
+      <div class="mb-6 pl-[12px] pt-[6px] pb-[8px] pr-[6px]  bg-[#26A17B]  border-[#26A17B] border-l-[4px]  bg-opacity-20 rounded-[4px]">
+        <div class="flex items-start gap-[10px]">
+          <p class="text-white text-[15px] font-[Roboto] opacity-80 leading-relaxed flex-1">
             Укажите правильный адрес вашего кошелька TRC-20. В противном случае компания не возместит сумму
           </p>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.06801 7.70898C3.21287 7.33648 2.92566 6.95777 2.57177 6.77201C1.93461 6.43756 1.5 5.76953 1.5 5C1.5 3.89543 2.39543 3 3.5 3C4.60206 3 5.49594 3.89137 5.49999 4.99248C5.5 4.99499 5.50001 4.99749 5.50001 5C5.50001 6.54807 5.22855 7.67136 4.93202 8.43388C4.78422 8.81393 4.63168 9.10051 4.50706 9.30228C4.44482 9.40305 4.38972 9.48239 4.34589 9.54141C4.32399 9.57092 4.30491 9.59534 4.28919 9.6148C4.28287 9.62262 4.26705 9.64137 4.25789 9.65222C4.25564 9.65488 4.25259 9.6585 4.25259 9.6585C3.88891 10.0741 3.25715 10.1163 2.84151 9.75258C2.43082 9.39322 2.38481 8.77213 2.73463 8.35642L2.74007 8.34921C2.75094 8.33458 2.77396 8.3023 2.80547 8.25129C2.86835 8.14949 2.96581 7.97178 3.06801 7.70898Z" fill="#26A17B"/>
+<path d="M4.25968 9.65032L4.25423 9.65663L4.25596 9.65464L4.25968 9.65032Z" fill="#26A17B"/>
+<path d="M8.06801 7.70898C8.21287 7.33648 7.92566 6.95777 7.57177 6.77201C6.93461 6.43756 6.5 5.76953 6.5 5C6.5 3.89543 7.39543 3 8.5 3C9.60206 3 10.4959 3.89137 10.5 4.99248C10.5 4.99499 10.5 4.99749 10.5 5C10.5 6.54807 10.2286 7.67136 9.93202 8.43388C9.78422 8.81393 9.63168 9.10051 9.50706 9.30228C9.44482 9.40305 9.38972 9.48239 9.34589 9.54141C9.32399 9.57092 9.30491 9.59534 9.28919 9.6148C9.28287 9.62262 9.26705 9.64137 9.25789 9.65222C9.25564 9.65488 9.25259 9.6585 9.25259 9.6585C8.88891 10.0741 8.25715 10.1163 7.84151 9.75258C7.43082 9.39322 7.38481 8.77213 7.73463 8.35642L7.74007 8.34921C7.75094 8.33458 7.77396 8.3023 7.80547 8.25129C7.86835 8.14949 7.96581 7.97178 8.06801 7.70898Z" fill="#26A17B"/>
+<path d="M9.25968 9.65032L9.25423 9.65663L9.25596 9.65464L9.25968 9.65032Z" fill="#26A17B"/>
+</svg>
+
         </div>
       </div>
 
+    </div>
+    
+    <!-- Fixed bottom section -->
+    <div class="fixed bottom-[160px] left-0 right-0 bg-[#181B20] px-4 pt-4">
       <!-- Terms Checkbox -->
-      <div class="mb-6">
+      <div class="mb-4">
         <BaseCheckbox v-model="acceptedTerms">
           <span>
             Я прочитал

@@ -122,7 +122,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 22px;
   overflow: hidden;
-  padding: 20px;
+  padding: 16px;
   background-color: #1D2024;
 }
 .circle {

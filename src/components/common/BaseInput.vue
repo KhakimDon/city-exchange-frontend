@@ -21,7 +21,7 @@
       />
     </div>
     <p v-if="error" class="pb-2 text-sm text-red-500">{{ error }}</p>
-    <div class="absolute bottom-[0px] left-[-16px] right-[-16px] h-[1px] bg-[#8E8E93]/10"></div>
+    <div v-if="line" class="absolute bottom-[0px] left-[-16px] right-[-16px] h-[1px] bg-[#8E8E93]/10"></div>
   </div>
 
 </template>
@@ -37,12 +37,14 @@ interface Props {
   required?: boolean
   disabled?: boolean
   error?: string
+  line?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   type: 'text',
   required: false,
-  disabled: false
+  disabled: false,
+  line: true
 })
 
 defineEmits<{

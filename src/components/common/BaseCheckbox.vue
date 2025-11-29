@@ -1,5 +1,5 @@
 <template>
-  <label class="flex items-start gap-3 cursor-pointer">
+  <label class="flex items-end gap-3 cursor-pointer">
     <input
       type="checkbox"
       :checked="modelValue"
