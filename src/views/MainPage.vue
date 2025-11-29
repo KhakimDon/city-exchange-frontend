@@ -56,7 +56,7 @@
     <!-- Service Blocks -->
     <div class="mt-6 space-y-4">
       <!-- Buy/Sell USDT Block -->
-      <div class="service-block">
+      <router-link to="/buy-sell" class="service-block block">
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
@@ -67,7 +67,7 @@
             <img src="@/assets/svg/blocks/купить продать.svg" alt="Buy/Sell" class="w-[140px] h-[115px]" />
           </div>
         </div>
-      </div>
+      </router-link>
       
       <!-- AML Check Block -->
       <div class="service-block">
