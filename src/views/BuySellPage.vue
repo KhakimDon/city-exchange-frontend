@@ -20,7 +20,7 @@
             <!-- Currency label next to input text -->
             <p 
               v-if="amount"
-              class="absolute chip left-0 top-[50%] -translate-y-1/2 pointer-events-none text-gray-400 text-[25px] font-light whitespace-nowrap"
+              class="absolute chip left-0 top-[60%] -translate-y-1/2 pointer-events-none text-gray-400 text-[25px] font-light whitespace-nowrap"
               :style="{ left: `${getAmountWidth()}px` }"
             >
               {{ exchangeType === 'buy' ? 'Руб' : 'USDT' }}
