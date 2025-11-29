@@ -104,9 +104,9 @@
     </div>
     
     <!-- Fixed bottom section -->
-    <div class="fixed bottom-[160px] left-0 right-0 bg-[#181B20] px-4 pt-4">
+    <div class="fixed bottom-[30px] left-0 right-0 bg-[#181B20] px-4 pt-4">
       <!-- Terms Checkbox -->
-      <div class="mb-4">
+      <div class="mb-[27px]">
         <BaseCheckbox v-model="acceptedTerms">
           <span>
             Я прочитал
@@ -121,10 +121,10 @@
         @click="handleSubmit"
         :disabled="!isFormValid"
         :class="cn(
-          'w-full h-14 rounded-xl font-semibold text-white transition-colors',
+          'w-full h-14 rounded-[100px] font-semibold text-white transition-colors',
           {
-            'bg-[#26A17B] hover:bg-[#228B6D] active:bg-[#1F7A5F]': isFormValid,
-            'bg-gray-600 opacity-50 cursor-not-allowed': !isFormValid
+            'bg-[#26A17B] hover:bg-[#228B6D] active:bg-[#1F7A5F]': !isFormValid,
+            'bg-gray-600 opacity-50 cursor-not-allowed': isFormValid
           }
         )"
       >

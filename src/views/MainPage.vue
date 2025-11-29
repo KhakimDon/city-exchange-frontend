@@ -96,6 +96,7 @@
           </div>
         </div>
       </div>
+      <div class="h-[20px]"></div>
     </div>
     
     <!-- Rest of content -->
