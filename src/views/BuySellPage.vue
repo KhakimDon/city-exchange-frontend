@@ -13,7 +13,7 @@
               type="text"
               inputmode="decimal"
               placeholder="0"
-              class="w-full px-0 pr-32 font-[800] bg-transparent font-normal text-white text-[40px] placeholder:text-gray-500 focus:outline-none pt-[5px] pb-[4px]"
+              class="w-full px-0 pr-32 bg-transparent font-bold text-white text-[40px] placeholder:text-gray-500 focus:outline-none pt-[5px] pb-[4px]"
               @input="formatAmount"
               ref="amountInputRef"
             />
