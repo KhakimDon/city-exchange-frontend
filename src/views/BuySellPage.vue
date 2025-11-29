@@ -121,7 +121,7 @@
         @click="handleSubmit"
         :disabled="!isFormValid"
         :class="cn(
-          'w-full h-14 rounded-[100px] font-semibold text-white transition-colors',
+          'w-full btn-shadow h-14 rounded-[100px] font-semibold text-white transition-colors',
           {
             'bg-[#26A17B] hover:bg-[#228B6D] active:bg-[#1F7A5F]': !isFormValid,
             'bg-gray-600 opacity-50 cursor-not-allowed': isFormValid
@@ -316,5 +316,8 @@ const handleSubmit = () => {
 <style scoped>
 .chip {
   font-weight: 100 !important;
+}
+.btn-shadow {
+  box-shadow: 0 4px 64px rgba(38, 161, 122, 0.32), 0 4px 128px rgba(38, 161, 122, 0.32);
 }
 </style>
