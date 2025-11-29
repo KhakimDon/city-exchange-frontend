@@ -60,8 +60,8 @@
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
-            <h3 class="text-white text-lg font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Купить/Продать USDT</h3>
-            <p class="text-gray-400 text-sm">Оформление заявки на покупку USDT</p>
+            <h3 class="text-white text-base font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Купить/Продать USDT</h3>
+            <p class="text-gray-400 text-[10px]">Оформление заявки на покупку USDT</p>
           </div>
           <div class="-mr-8">
             <img src="@/assets/svg/blocks/купить продать.svg" alt="Buy/Sell" class="w-[140px] h-[115px]" />
@@ -74,8 +74,8 @@
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
-            <h3 class="text-white text-lg font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">AML Проверка</h3>
-            <p class="text-gray-400 text-sm">Проверка прозрачности вашего кошелька</p>
+            <h3 class="text-white text-base font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">AML Проверка</h3>
+            <p class="text-gray-400 text-[10px]">Проверка прозрачности вашего кошелька</p>
           </div>
           <div class="-mr-8">
             <img src="@/assets/svg/blocks/aml.svg" alt="AML" class="w-[140px] h-[115px]" />
@@ -88,8 +88,8 @@
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
-            <h3 class="text-white text-lg font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Cityex24</h3>
-            <p class="text-gray-400 text-sm">Совершай международные платежи с Cityex24</p>
+            <h3 class="text-white text-base font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Cityex24</h3>
+            <p class="text-gray-400 text-[10px]">Совершай международные платежи с Cityex24</p>
           </div>
           <div class="-mr-8">
             <img src="@/assets/svg/blocks/cityex24.svg" alt="Cityex24" class="w-[140px] h-[115px]" />
@@ -117,13 +117,13 @@
 
 .service-block {
   position: relative;
-  height: 120px;
+  height: 108px;
   margin-left: 18px;
   margin-right: 18px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 22px;
   overflow: hidden;
-  padding: 12px;
+  padding: 16px;
   background-color: #1D2024;
 }
 .circle {
