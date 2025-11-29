@@ -36,33 +36,33 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/aml',
-    name: 'aml',
     component: AppLayout,
     children: [
       {
         path: '',
+        name: 'aml',
         component: () => import('@/views/AMLPage.vue')
       }
     ]
   },
   {
     path: '/cityex24',
-    name: 'cityex24',
     component: AppLayout,
     children: [
       {
         path: '',
+        name: 'cityex24',
         component: () => import('@/views/Cityex24Page.vue')
       }
     ]
   },
   {
     path: '/about',
-    name: 'about',
     component: AppLayout,
     children: [
       {
         path: '',
+        name: 'about',
         component: () => import('@/views/AboutPage.vue')
       }
     ]

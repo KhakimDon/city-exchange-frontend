@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-[#181B20]" :class="{ 'pb-16': shouldShowBottomNav }">
     <AppHeader />
-    <slot />
+    <router-view />
     <BottomNavigation v-if="shouldShowBottomNav" />
   </div>
 </template>
