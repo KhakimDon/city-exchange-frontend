@@ -1,0 +1,20 @@
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+# Настройка сканирования секретов
+# VITE_API_BASE_URL - это публичная переменная, не секрет
+# Она встраивается в клиентский код, что нормально для фронтенда
+[build.environment]
+  # Игнорировать VITE_API_BASE_URL при сканировании секретов
+  # так как это публичная переменная, которая должна быть в клиентском коде
+  SECRETS_SCAN_OMIT_KEYS = "VITE_API_BASE_URL"
+  
+# Исключить файлы из сканирования секретов
+[build.processing]
+  skip_processing = false
+
+# Исключить dist папку из сканирования (там будут встроенные значения - это нормально)
+[build.processing.skip_processing]
+  paths = ["dist/**"]
+
