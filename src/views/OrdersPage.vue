@@ -36,7 +36,7 @@
                 :class="cn(
                   'px-2 py-1 rounded text-xs font-medium',
                   {
-                    'bg-[#26A17B] bg-opacity-20 text-[#26A17B]': order.status === 'pending',
+                    'bg-[#FFBF00] bg-opacity-20 text-[#FFBF00]': order.status === 'pending',
                     'bg-green-500 bg-opacity-20 text-green-400': order.status === 'processed',
                     'bg-red-500 bg-opacity-20 text-red-400': order.status === 'cancelled',
                   }
