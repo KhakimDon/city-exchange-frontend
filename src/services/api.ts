@@ -17,6 +17,7 @@ class ApiService {
     const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true', // Пропускает предупреждение ngrok
         ...options.headers
       },
       ...options
