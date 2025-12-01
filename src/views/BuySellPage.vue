@@ -37,7 +37,7 @@
               <span class="text-gray-400 text-sm">Вы получите:</span>
               <span class="text-white text-sm font-medium">{{ convertedAmount }}</span>
             </div>
-            <p class="text-gray-400 text-sm">1 USDT = {{ exchangeRate }}₽</p>
+            <p class="text-gray-400 text-sm">1 USDT = {{ exchangeRate || '—' }}₽</p>
             <!-- Line after "Вы получите" block -->
             <div class="absolute bottom-[-14px] left-[-16px] right-[-16px] h-[1px] bg-[#8E8E93]/10"></div>
           </div>
@@ -257,6 +257,7 @@ onMounted(() => {
       router.push('/')
     })
   }
+  loadExchangeRates()
 })
 
 onBeforeUnmount(() => {
@@ -283,18 +284,80 @@ const errors = ref({
   walletAddress: ''
 })
 
+const buyRate = ref<string>('')
+const sellRate = ref<string>('')
+const isLoadingRates = ref<boolean>(true)
+
+// Format rate with comma as decimal separator
+const formatRate = (rate: string | number): string => {
+  if (!rate) return ''
+  const num = typeof rate === 'string' ? parseFloat(rate) : rate
+  if (isNaN(num)) return ''
+  return num.toFixed(2).replace('.', ',')
+}
+
+// Load exchange rates from backend
+const loadExchangeRates = async () => {
+  isLoadingRates.value = true
+  try {
+    const response = await apiService.get<{ success: boolean; rates: Array<{ currency_from: string; currency_to: string; rate: string }> }>('/api/exchange-rates/')
+    if (response.data.success && response.data.rates) {
+      // Find buy rate: RUB -> USDT (сколько RUB нужно заплатить за 1 USDT)
+      const buyRateObj = response.data.rates.find(r => 
+        r.currency_from === 'Руб' && r.currency_to === 'USDT'
+      )
+      // Find sell rate: USDT -> RUB (сколько RUB получишь за 1 USDT)
+      const sellRateObj = response.data.rates.find(r => 
+        r.currency_from === 'USDT' && r.currency_to === 'Руб'
+      )
+      
+      // If not found in direct direction, try reverse and invert
+      if (!buyRateObj) {
+        const reverseBuy = response.data.rates.find(r => 
+          r.currency_from === 'USDT' && r.currency_to === 'Руб'
+        )
+        if (reverseBuy) {
+          // Invert: if USDT -> RUB rate is X, then RUB -> USDT is 1/X
+          buyRate.value = formatRate(1 / parseFloat(reverseBuy.rate))
+        }
+      } else {
+        buyRate.value = formatRate(buyRateObj.rate)
+      }
+      
+      if (!sellRateObj) {
+        const reverseSell = response.data.rates.find(r => 
+          r.currency_from === 'Руб' && r.currency_to === 'USDT'
+        )
+        if (reverseSell) {
+          // Invert: if RUB -> USDT rate is X, then USDT -> RUB is 1/X
+          sellRate.value = formatRate(1 / parseFloat(reverseSell.rate))
+        }
+      } else {
+        sellRate.value = formatRate(sellRateObj.rate)
+      }
+    }
+  } catch (error) {
+    console.error('Error loading exchange rates:', error)
+  } finally {
+    isLoadingRates.value = false
+  }
+}
+
 const exchangeRate = computed(() => {
-  return exchangeType.value === 'buy' ? '92,36' : '91,87'
+  if (isLoadingRates.value) return '—'
+  return exchangeType.value === 'buy' ? buyRate.value : sellRate.value
 })
 
 const convertedAmount = computed(() => {
   if (!amount.value) return ''
+  if (isLoadingRates.value || !exchangeRate.value || exchangeRate.value === '—') return ''
 
   // Remove spaces for calculation
   const amountValue = parseFloat(amount.value.replace(/\s/g, ''))
   if (isNaN(amountValue) || amountValue <= 0) return ''
 
   const rate = parseFloat(exchangeRate.value.replace(',', '.'))
+  if (isNaN(rate) || rate <= 0) return ''
 
   if (exchangeType.value === 'sell') {
     // Selling USDT, getting rubles

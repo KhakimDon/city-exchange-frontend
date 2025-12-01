@@ -36,11 +36,15 @@
         <!-- Buy Column -->
         <div class="flex-1 flex flex-col items-center justify-center">
           <div class="text-white text-base">Купить</div>
-          <div v-if="isLoadingRates" class="shimmer-rate text-[32px] font-semibold" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
-            <span class="shimmer-text">00,00</span>
-          </div>
-          <div v-else class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
-            {{ buyRate || '—' }}
+          <div class="rate-container">
+            <Transition name="rate-fade" mode="out-in">
+              <div v-if="isLoadingRates" key="loading" class="shimmer-rate text-[32px] font-semibold" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+                <span class="shimmer-text">00,00</span>
+              </div>
+              <div v-else key="rate" class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+                {{ buyRate || '—' }}
+              </div>
+            </Transition>
           </div>
           <div class="text-[#707579] w-[max-content] text-[17px]">за 1 USDT</div>
         </div>
@@ -48,11 +52,15 @@
         <!-- Sell Column -->
         <div class="flex-1  flex flex-col items-center justify-center">
           <div class="text-white text-base">Продать</div>
-          <div v-if="isLoadingRates" class="shimmer-rate text-[32px] font-semibold" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
-            <span class="shimmer-text">00,00</span>
-          </div>
-          <div v-else class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
-            {{ sellRate || '—' }}
+          <div class="rate-container">
+            <Transition name="rate-fade" mode="out-in">
+              <div v-if="isLoadingRates" key="loading" class="shimmer-rate text-[32px] font-semibold" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+                <span class="shimmer-text">00,00</span>
+              </div>
+              <div v-else key="rate" class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+                {{ sellRate || '—' }}
+              </div>
+            </Transition>
           </div>
           <div class="text-[#707579] w-[max-content] text-[17px]">за 1 USDT</div>
         </div>
@@ -124,7 +132,7 @@
 /* Shimmer effect for loading rates */
 .shimmer-rate {
   width: 100px;
-  height: 40px;
+  height: 48px;
   position: relative;
   display: flex;
   align-items: center;
@@ -161,6 +169,30 @@
   100% {
     left: 100%;
   }
+}
+
+/* Rate container with fixed height to prevent layout shift */
+.rate-container {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Smooth fade transition for rate loading */
+.rate-fade-enter-active,
+.rate-fade-leave-active {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.rate-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.rate-fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .service-block {
