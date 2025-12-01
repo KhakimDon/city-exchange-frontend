@@ -11,16 +11,6 @@ if (typeof window !== 'undefined') {
     WebApp.ready()
     WebApp.expand()
     
-    // Disable caching in development mode
-    if (import.meta.env.DEV) {
-      // Add cache-busting parameter to force reload
-      const url = new URL(window.location.href)
-      if (!url.searchParams.has('_t')) {
-        url.searchParams.set('_t', Date.now().toString())
-        window.history.replaceState({}, '', url.toString())
-      }
-    }
-    
     // Set theme colors from Telegram
     if (WebApp.themeParams.bg_color) {
       document.documentElement.style.setProperty('--tg-theme-bg-color', WebApp.themeParams.bg_color)

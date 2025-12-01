@@ -15,9 +15,9 @@ import BackButton from '@/components/common/BackButton.vue'
 
 const route = useRoute()
 
-// Показывать кнопку назад на всех страницах, кроме главной и buy-sell
+// Показывать кнопку назад на всех страницах, кроме главной, buy-sell и cityex24
 const showBackButton = computed(() => {
-  return route.path !== '/' && route.path !== '/buy-sell'
+  return route.path !== '/' && route.path !== '/buy-sell' && route.path !== '/cityex24'
 })
 </script>
 

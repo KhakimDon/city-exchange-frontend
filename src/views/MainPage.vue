@@ -9,7 +9,7 @@
           <h1 class="text-[26px] font-bold text-white mb-0.5" style="font-family: 'Montserrat', sans-serif;">
             City Exchange
           </h1>
-          <p class="text-[9px] text-[#ACADAF] max-w-[197px] leading-tight" style="font-family: 'Roboto', sans-serif;">
+          <p class="text-[12px] text-[#ACADAF]  leading-tight" style="font-family: 'Roboto', sans-serif;">
             Добро пожаловать в City Exchange. Выберите одну из услуг, чтобы продолжить
           </p>
         </div>
@@ -36,19 +36,25 @@
         <!-- Buy Column -->
         <div class="flex-1 flex flex-col items-center justify-center">
           <div class="text-white text-base">Купить</div>
-          <div class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
-            92,36₽
+          <div v-if="isLoadingRates" class="shimmer-rate text-[32px] font-semibold" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+            <span class="shimmer-text">00,00</span>
           </div>
-          <div class="text-[#707579] text-[17px]">за 1 USDT</div>
+          <div v-else class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+            {{ buyRate || '—' }}
+          </div>
+          <div class="text-[#707579] w-[max-content] text-[17px]">за 1 USDT</div>
         </div>
         
         <!-- Sell Column -->
         <div class="flex-1  flex flex-col items-center justify-center">
           <div class="text-white text-base">Продать</div>
-          <div class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
-            91,87₽
+          <div v-if="isLoadingRates" class="shimmer-rate text-[32px] font-semibold" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+            <span class="shimmer-text">00,00</span>
           </div>
-          <div class="text-[#707579] text-[17px]">за 1 USDT</div>
+          <div v-else class="text-[#26A17B] text-[32px] font-semibold rate-shadow" style="font-family: -apple-system, 'SF Pro Rounded', system-ui, sans-serif;">
+            {{ sellRate || '—' }}
+          </div>
+          <div class="text-[#707579] w-[max-content] text-[17px]">за 1 USDT</div>
         </div>
       </div>
     </div>
@@ -60,8 +66,8 @@
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
-            <h3 class="text-white text-base font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Купить/Продать USDT</h3>
-            <p class="text-gray-400 text-[10px]">Оформление заявки на покупку USDT</p>
+            <h3 class="text-white text-lg font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Купить/Продать USDT</h3>
+            <p class="text-gray-400 text-sm">Оформление заявки на покупку USDT</p>
           </div>
           <div class="-mr-8">
             <img src="@/assets/svg/blocks/купить продать.svg" alt="Buy/Sell" class="w-[140px] h-[115px]" />
@@ -74,8 +80,8 @@
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
-            <h3 class="text-white text-base font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">AML Проверка</h3>
-            <p class="text-gray-400 text-[10px]">Проверка прозрачности вашего кошелька</p>
+            <h3 class="text-white text-lg font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">AML Проверка</h3>
+            <p class="text-gray-400 text-sm">Проверка прозрачности вашего кошелька</p>
           </div>
           <div class="-mr-8">
             <img src="@/assets/svg/blocks/aml.svg" alt="AML" class="w-[140px] h-[115px]" />
@@ -84,18 +90,18 @@
       </div>
       
       <!-- Cityex24 Block -->
-      <div class="service-block">
+      <router-link to="/cityex24" class="service-block block">
         <div class="circle"></div>
         <div class="flex items-center justify-between h-full">
           <div class="">
-            <h3 class="text-white text-base font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Cityex24</h3>
-            <p class="text-gray-400 text-[10px]">Совершай международные платежи с Cityex24</p>
+            <h3 class="text-white text-lg font-bold mb-1" style="font-family: 'Montserrat', sans-serif;">Cityex24</h3>
+            <p class="text-gray-400 text-sm">Совершай международные платежи с Cityex24</p>
           </div>
           <div class="-mr-8">
             <img src="@/assets/svg/blocks/cityex24.svg" alt="Cityex24" class="w-[140px] h-[115px]" />
           </div>
         </div>
-      </div>
+      </router-link>
       <div class="h-[20px]"></div>
     </div>
     
@@ -108,22 +114,64 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .rate-shadow {
   text-shadow: 
     0px 0px 18px rgba(38, 161, 123, 0.3),
     0px 0px 60px rgba(38, 161, 123, 1);
 }
 
+/* Shimmer effect for loading rates */
+.shimmer-rate {
+  width: 100px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shimmer-text {
+  color: #26A17B;
+  opacity: 0.4;
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
 .service-block {
   position: relative;
-  height: 108px;
+  height: 120px;
   margin-left: 18px;
   margin-right: 18px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 22px;
   overflow: hidden;
-  padding: 16px;
+  padding: 20px;
   background-color: #1D2024;
 }
 .circle {
@@ -140,5 +188,70 @@
 </style>
 
 <script setup lang="ts">
-// Main page
+import { ref, onMounted } from 'vue'
+import { apiService } from '@/services/api'
+
+const buyRate = ref<string>('')
+const sellRate = ref<string>('')
+const isLoadingRates = ref<boolean>(true)
+
+// Format rate with comma as decimal separator
+const formatRate = (rate: string | number): string => {
+  if (!rate) return ''
+  const num = typeof rate === 'string' ? parseFloat(rate) : rate
+  if (isNaN(num)) return ''
+  return num.toFixed(2).replace('.', ',') + '₽'
+}
+
+// Load exchange rates from backend
+const loadExchangeRates = async () => {
+  isLoadingRates.value = true
+  try {
+    const response = await apiService.get<{ success: boolean; rates: Array<{ currency_from: string; currency_to: string; rate: string }> }>('/api/exchange-rates/')
+    if (response.data.success && response.data.rates) {
+      // Find buy rate: RUB -> USDT (сколько RUB нужно заплатить за 1 USDT)
+      const buyRateObj = response.data.rates.find(r => 
+        r.currency_from === 'Руб' && r.currency_to === 'USDT'
+      )
+      // Find sell rate: USDT -> RUB (сколько RUB получишь за 1 USDT)
+      const sellRateObj = response.data.rates.find(r => 
+        r.currency_from === 'USDT' && r.currency_to === 'Руб'
+      )
+      
+      // If not found in direct direction, try reverse and invert
+      if (!buyRateObj) {
+        const reverseBuy = response.data.rates.find(r => 
+          r.currency_from === 'USDT' && r.currency_to === 'Руб'
+        )
+        if (reverseBuy) {
+          // Invert: if USDT -> RUB rate is X, then RUB -> USDT is 1/X
+          buyRate.value = formatRate(1 / parseFloat(reverseBuy.rate))
+        }
+      } else {
+        buyRate.value = formatRate(buyRateObj.rate)
+      }
+      
+      if (!sellRateObj) {
+        const reverseSell = response.data.rates.find(r => 
+          r.currency_from === 'RUB' && r.currency_to === 'USDT'
+        )
+        if (reverseSell) {
+          // Invert: if RUB -> USDT rate is X, then USDT -> RUB is 1/X
+          sellRate.value = formatRate(1 / parseFloat(reverseSell.rate))
+        }
+      } else {
+        sellRate.value = formatRate(sellRateObj.rate)
+      }
+    }
+  } catch (error) {
+    console.error('Error loading exchange rates:', error)
+    // Keep default values or show error
+  } finally {
+    isLoadingRates.value = false
+  }
+}
+
+onMounted(() => {
+  loadExchangeRates()
+})
 </script>
