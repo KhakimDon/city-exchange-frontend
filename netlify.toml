@@ -2,11 +2,3 @@
   command = "bun run build"
   publish = "dist"
 
-# Настройка сканирования секретов
-# VITE_API_BASE_URL - это публичная переменная, не секрет
-# Она встраивается в клиентский код, что нормально для фронтенда
-# 
-# Для настройки игнорирования секретов добавьте в Netlify UI:
-# Site settings > Build & deploy > Environment variables
-# SECRETS_SCAN_OMIT_KEYS = VITE_API_BASE_URL
-
