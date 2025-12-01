@@ -462,12 +462,14 @@ const submitCityex24Request = async () => {
     const telegramUserId = WebApp.initDataUnsafe?.user?.id
 
     // Create request payload - send clean phone number (digits only)
-    const cleanPhone = phoneNumber.value.replace(/\D/g, '')
-    const formattedPhone = cleanPhone.startsWith('7') ? `+${cleanPhone}` : `+7${cleanPhone}`
+    let cleanPhone = phoneNumber.value.replace(/\D/g, '')
+    
+    
+    // Format phone: if starts with 7, add +, otherwise add +7
 
     const requestData: Record<string, unknown> = {
       country: selectedCountry.value,
-      contact_phone: formattedPhone,
+      contact_phone: `+${cleanPhone}`,
     }
 
     // Add telegram_user_id if available
