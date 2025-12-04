@@ -5,7 +5,8 @@
         <router-link
           v-for="item in navigationItems"
           :key="item.name"
-          :to="item.path"
+          :to="item.name === 'referral' ? '#' : item.path"
+          @click.prevent="handleNavigationClick(item)"
           :class="cn(
             'flex flex-col items-center justify-center flex-1 h-full transition-colors relative',
             {
@@ -95,10 +96,37 @@
       </div>
     </div>
   </nav>
+
+  <!-- Referral Development Bottom Sheet -->
+  <Transition name="drawer">
+    <div v-if="showReferralSheet" class="fixed inset-0 z-[60] flex items-end" @click.self="closeReferralSheet">
+      <div class="drawer-backdrop absolute inset-0 bg-black/50" @click="closeReferralSheet"></div>
+      <div class="drawer-content bg-[#1D2024] rounded-t-3xl w-full max-h-[90vh] overflow-y-auto relative z-10"
+        @click.stop>
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 border-b border-[#26292D]">
+          <h2 class="text-white text-lg font-semibold">Рефералка</h2>
+          <button @click="closeReferralSheet" class="text-gray-400 hover:text-white">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <div class="text-white/80 text-base leading-relaxed text-center">
+            Пока этот пункт в разработке, сообщим когда будет готово
+          </div>
+        </div>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { cn } from '@/utils/cn'
 
 interface NavigationItem {
@@ -136,8 +164,60 @@ const navigationItems: NavigationItem[] = [
 ]
 
 const route = useRoute()
+const router = useRouter()
+const showReferralSheet = ref(false)
 
 const isActive = (path: string): boolean => {
   return route.path === path
 }
+
+const handleNavigationClick = (item: NavigationItem) => {
+  if (item.name === 'referral') {
+    showReferralSheet.value = true
+  } else {
+    router.push(item.path)
+  }
+}
+
+const closeReferralSheet = () => {
+  showReferralSheet.value = false
+}
 </script>
+
+<style scoped>
+/* Drawer animations */
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.drawer-enter-active .drawer-backdrop,
+.drawer-leave-active .drawer-backdrop {
+  transition: opacity 0.3s ease;
+}
+
+.drawer-enter-active .drawer-content,
+.drawer-leave-active .drawer-content {
+  transition: transform 0.3s ease;
+}
+
+.drawer-enter-from,
+.drawer-leave-to {
+  opacity: 0;
+}
+
+.drawer-enter-from .drawer-backdrop,
+.drawer-leave-to .drawer-backdrop {
+  opacity: 0;
+}
+
+.drawer-enter-from .drawer-content,
+.drawer-leave-to .drawer-content {
+  transform: translateY(100%);
+}
+
+.drawer-enter-to .drawer-content,
+.drawer-leave-from .drawer-content {
+  transform: translateY(0);
+}
+</style>
